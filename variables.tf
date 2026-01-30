@@ -20,3 +20,9 @@ variable "route53_zone_id" {
   description = "Route53 hosted zone ID for tnmt.info"
   type        = string
 }
+
+variable "vps_ip" {
+  description = "VPS IP address (used until CloudFront cutover)"
+  type        = string
+  default     = "164.70.114.34"
+}
