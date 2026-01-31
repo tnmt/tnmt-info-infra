@@ -83,6 +83,18 @@ resource "aws_s3_bucket_policy" "static" {
             "AWS:SourceArn" = "arn:aws:cloudfront::540104841974:distribution/E3CO5VDV5CAN87"
           }
         }
+      },
+      {
+        Sid       = "AllowCloudFrontSite"
+        Effect    = "Allow"
+        Principal = { Service = "cloudfront.amazonaws.com" }
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.static.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.site.arn
+          }
+        }
       }
     ]
   })

@@ -12,6 +12,12 @@ resource "aws_cloudfront_distribution" "site" {
     origin_access_control_id = aws_cloudfront_origin_access_control.site.id
   }
 
+  origin {
+    domain_name              = aws_s3_bucket.static.bucket_regional_domain_name
+    origin_id                = "s3-static"
+    origin_access_control_id = aws_cloudfront_origin_access_control.site.id
+  }
+
   enabled             = true
   default_root_object = "index.html"
   aliases             = [var.domain]
@@ -41,6 +47,16 @@ resource "aws_cloudfront_distribution" "site" {
     min_ttl     = 0
     default_ttl = 86400
     max_ttl     = 31536000
+  }
+
+  ordered_cache_behavior {
+    path_pattern           = "/images/*"
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "s3-static"
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = true
+    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
   }
 
   custom_error_response {
