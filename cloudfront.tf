@@ -23,6 +23,7 @@ resource "aws_cloudfront_distribution" "site" {
   aliases             = [var.domain]
   is_ipv6_enabled     = true
   http_version        = "http2and3"
+  web_acl_id          = "arn:aws:wafv2:us-east-1:540104841974:global/webacl/CreatedByCloudFront-2ee1e91b/b1d543e7-2274-4d92-9673-375b9b87dca6"
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
@@ -30,23 +31,12 @@ resource "aws_cloudfront_distribution" "site" {
     target_origin_id       = "s3"
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
+    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
 
-    # Append index.html for subdirectory requests (e.g. /blog/ -> /blog/index.html)
     function_association {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.rewrite.arn
     }
-
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
-
-    min_ttl     = 0
-    default_ttl = 86400
-    max_ttl     = 31536000
   }
 
   ordered_cache_behavior {
