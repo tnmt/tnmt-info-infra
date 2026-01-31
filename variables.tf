@@ -21,9 +21,3 @@ variable "route53_zone_id" {
   type        = string
   default     = "Z1ANCL5HGATQ2B"
 }
-
-variable "vps_ip" {
-  description = "VPS IP address (used until CloudFront cutover)"
-  type        = string
-  default     = "164.70.114.34"
-}
