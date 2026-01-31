@@ -86,8 +86,8 @@ resource "aws_iam_role_policy" "github_actions_infra" {
         Resource = [
           "arn:aws:s3:::tnmt-info-site",
           "arn:aws:s3:::tnmt-info-site/*",
-          "arn:aws:s3:::3min-static-tnmt-info",
-          "arn:aws:s3:::3min-static-tnmt-info/*"
+          "arn:aws:s3:::tnmt-info-assets",
+          "arn:aws:s3:::tnmt-info-assets/*"
         ]
       },
       {

@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   origin {
-    domain_name              = aws_s3_bucket.static.bucket_regional_domain_name
+    domain_name              = aws_s3_bucket.assets.bucket_regional_domain_name
     origin_id                = "s3-static"
     origin_access_control_id = aws_cloudfront_origin_access_control.site.id
   }
