@@ -23,7 +23,6 @@ resource "aws_cloudfront_distribution" "site" {
   aliases             = [var.domain]
   is_ipv6_enabled     = true
   http_version        = "http2and3"
-  web_acl_id          = "arn:aws:wafv2:us-east-1:540104841974:global/webacl/CreatedByCloudFront-2ee1e91b/b1d543e7-2274-4d92-9673-375b9b87dca6"
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
