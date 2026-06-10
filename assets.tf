@@ -27,10 +27,12 @@ resource "aws_s3_bucket" "assets" {
 resource "aws_s3_bucket_public_access_block" "assets" {
   bucket = aws_s3_bucket.assets.id
 
+  # Public read を policy 経由で許可するため block_public_policy /
+  # restrict_public_buckets を解除。ACL 系は引き続き遮断する。
   block_public_acls       = true
-  block_public_policy     = true
+  block_public_policy     = false
   ignore_public_acls      = true
-  restrict_public_buckets = true
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_policy" "assets" {
@@ -43,6 +45,13 @@ resource "aws_s3_bucket_policy" "assets" {
         Effect    = "Allow"
         Principal = { AWS = aws_iam_user.assets_uploader.arn }
         Action    = "s3:PutObject"
+        Resource  = "${aws_s3_bucket.assets.arn}/images/*"
+      },
+      {
+        Sid       = "AllowPublicReadImages"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.assets.arn}/images/*"
       },
       {
