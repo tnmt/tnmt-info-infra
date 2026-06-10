@@ -21,3 +21,9 @@ variable "route53_zone_id" {
   type        = string
   default     = "Z1ANCL5HGATQ2B"
 }
+
+variable "site_origin_ipv4" {
+  description = "IPv4 address of the self-hosted nginx serving tnmt.info"
+  type        = string
+  default     = "160.251.120.174"
+}
