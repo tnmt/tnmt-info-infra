@@ -53,18 +53,6 @@ resource "aws_s3_bucket_policy" "assets" {
         Principal = "*"
         Action    = "s3:GetObject"
         Resource  = "${aws_s3_bucket.assets.arn}/images/*"
-      },
-      {
-        Sid       = "AllowCloudFrontSite"
-        Effect    = "Allow"
-        Principal = { Service = "cloudfront.amazonaws.com" }
-        Action    = "s3:GetObject"
-        Resource  = "${aws_s3_bucket.assets.arn}/*"
-        Condition = {
-          StringEquals = {
-            "AWS:SourceArn" = aws_cloudfront_distribution.site.arn
-          }
-        }
       }
     ]
   })
