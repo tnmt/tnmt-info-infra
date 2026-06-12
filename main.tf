@@ -13,7 +13,7 @@ terraform {
     bucket  = "tnmt-info-terraform-state"
     key     = "tnmt-info-infra/terraform.tfstate"
     region  = "auto"
-    profile = "tnmt-r2-state"
+    profile = "tnmt-info-terraform-state"
     endpoints = {
       s3 = "https://ecc27c52c6bb2bf347319b62c261c0a2.r2.cloudflarestorage.com"
     }

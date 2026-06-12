@@ -39,7 +39,7 @@ terraform plan
 terraform apply
 ```
 
-backend は `~/.aws/credentials` の `tnmt-r2-state` プロファイルを内部参照する。
+backend は `~/.aws/credentials` の `tnmt-info-terraform-state` プロファイルを内部参照する。
 Cloudflare provider 認証は `terraform.tfvars` の `cloudflare_api_token`。
 
 ## CI/CD

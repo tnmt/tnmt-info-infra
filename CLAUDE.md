@@ -7,7 +7,7 @@ terraform plan
 terraform apply
 ```
 
-backend は `~/.aws/credentials` の `tnmt-r2-state` profile を内部参照する (Cloudflare R2 を S3 互換 API で利用)。
+backend は `~/.aws/credentials` の `tnmt-info-terraform-state` profile を内部参照する (Cloudflare R2 を S3 互換 API で利用)。
 
 ## 注意事項
 

@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir -p ~/.aws
           cat <<EOF > ~/.aws/credentials
-          [tnmt-r2-state]
+          [tnmt-info-terraform-state]
           aws_access_key_id = ${{ secrets.R2_STATE_ACCESS_KEY_ID }}
           aws_secret_access_key = ${{ secrets.R2_STATE_SECRET_ACCESS_KEY }}
           EOF
