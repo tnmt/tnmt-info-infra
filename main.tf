@@ -2,25 +2,30 @@ terraform {
   required_version = ">= 1.0"
 
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
       version = "~> 5.0"
     }
   }
 
+  # Cloudflare R2 を S3 互換 backend として使用。
   backend "s3" {
-    bucket = "tnmt-terraform-state"
-    key    = "tnmt-info-infra/terraform.tfstate"
-    region = "ap-northeast-1"
+    bucket  = "tnmt-info-terraform-state"
+    key     = "tnmt-info-infra/terraform.tfstate"
+    region  = "auto"
+    profile = "tnmt-r2-state"
+    endpoints = {
+      s3 = "https://ecc27c52c6bb2bf347319b62c261c0a2.r2.cloudflarestorage.com"
+    }
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+    use_path_style              = true
   }
 }
 
-provider "aws" {
-  region = "ap-northeast-1"
-}
-
-# ACM証明書はus-east-1が必要（CloudFront用）
-provider "aws" {
-  alias  = "us_east_1"
-  region = "us-east-1"
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

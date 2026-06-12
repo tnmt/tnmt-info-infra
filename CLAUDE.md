@@ -3,19 +3,16 @@
 ## コマンド
 
 ```sh
-AWS_PROFILE=tnmt-info-infra terraform plan
-AWS_PROFILE=tnmt-info-infra terraform apply
+terraform plan
+terraform apply
 ```
+
+backend は `~/.aws/credentials` の `tnmt-r2-state` profile を内部参照する (Cloudflare R2 を S3 互換 API で利用)。
 
 ## 注意事項
 
-- `/images/*` は `tnmt-info-assets` バケットを nginx から S3 へ reverse proxy で配信する。
-- サイト本体は別リポジトリ [tnmt/tnmt.info](https://github.com/tnmt/tnmt.info)。
+- サイト本体は別リポジトリ [tnmt/tnmt.info](https://github.com/tnmt/tnmt.info)。Cloudflare Pages で配信。
+- `/images/*` は Cloudflare R2 バケット `tnmt-info-assets` を Pages Functions (`functions/images/[[path]].ts`) 経由で配信。
+- DNS は Cloudflare ダッシュボードで管理 (Terraform 管理外)。
+- Pages の R2 binding (`IMAGES`) と `compatibility_date` は tnmt.info リポの `wrangler.toml` で管理。`env_vars` (HUGO_VERSION) は Terraform 管理。
 
-## TODO
-
-- [ ] 2026年3月以降: 旧 CloudFront ディストリビューション `E3CO5VDV5CAN87` (`static.tnmt.info`) を削除する。Free プランは2月末に解除済みの想定。削除コマンド:
-  ```sh
-  ETAG=$(AWS_PROFILE=tnmt-info-infra aws cloudfront get-distribution --id E3CO5VDV5CAN87 --query 'ETag' --output text)
-  AWS_PROFILE=tnmt-info-infra aws cloudfront delete-distribution --id E3CO5VDV5CAN87 --if-match "$ETAG"
-  ```

@@ -1,1 +1,1 @@
-route53_zone_id = "ZXXXXXXXXXXXXXXXXX"
+cloudflare_api_token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
