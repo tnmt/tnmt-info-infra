@@ -23,10 +23,10 @@ DNS は Cloudflare ダッシュボードで管理 (Terraform 管理外)。
 ## 画像アップロード
 
 日記画像のアップロードは R2 アクセスキーで実行。
-`~/.aws/credentials` に `tnmt-r2-uploader` プロファイルを作っておく。
+`~/.aws/credentials` に `tnmt-info-assets-uploader` プロファイルを作っておく。
 
 ```sh
-AWS_PROFILE=tnmt-r2-uploader python3 scripts/upload_diary_image.py photo.jpg --date 2026-01-30 --alt "説明文"
+AWS_PROFILE=tnmt-info-assets-uploader python3 scripts/upload_diary_image.py photo.jpg --date 2026-01-30 --alt "説明文"
 ```
 
 アップロードスクリプトは [tnmt.info](https://github.com/tnmt/tnmt.info) リポジトリの `scripts/upload_diary_image.py`。
