@@ -1,5 +1,5 @@
 # R2 bucket: tnmt.info の画像配信元。
-# Pages Functions binding 経由で配信するため public access は付けない。
+# SvelteKit の /images/* ルート (R2 binding) 経由で配信するため public access は付けない。
 resource "cloudflare_r2_bucket" "assets" {
   account_id = var.cloudflare_account_id
   name       = "tnmt-info-assets"
@@ -32,25 +32,22 @@ resource "cloudflare_pages_project" "site" {
     }
   }
 
+  # SvelteKit ビルド。Node.js のバージョンはリポジトリの .node-version で指定。
   build_config = {
-    build_command   = "hugo --gc --minify"
-    destination_dir = "public"
+    build_command   = "npm run build"
+    destination_dir = ".svelte-kit/cloudflare"
     root_dir        = ""
   }
 
-  # env_vars (HUGO_VERSION) のみ Terraform 管理。
+  # env_vars のみ Terraform 管理 (Hugo 時代の HUGO_VERSION は削除済み)。
   # r2_buckets / compatibility_date は wrangler.toml が真実 (provider v5 の
   # r2_buckets シリアライズバグ回避: cloudflare/terraform-provider-cloudflare#5373)。
   deployment_configs = {
     production = {
-      env_vars = {
-        HUGO_VERSION = { type = "plain_text", value = "0.155.0" }
-      }
+      env_vars = {}
     }
     preview = {
-      env_vars = {
-        HUGO_VERSION = { type = "plain_text", value = "0.155.0" }
-      }
+      env_vars = {}
     }
   }
 
