@@ -71,12 +71,3 @@ resource "cloudflare_pages_domain" "site" {
 }
 
 # DNS レコードは Cloudflare ダッシュボードで管理 (Terraform 管理外)。
-
-# Web Analytics: 手動セットアップ (host のみ指定、zone_tag/auto_install なし)。
-# GA(gtag.js) からの切り替え。site_token を tnmt.info リポジトリ側の
-# beacon script タグ (data-cf-beacon) に手動で埋め込んで使う。
-# Cookie 不要・EU 訪問者含め常時計測 (デフォルトで privacy-friendly)。
-resource "cloudflare_web_analytics_site" "site" {
-  account_id = var.cloudflare_account_id
-  host       = var.domain
-}
