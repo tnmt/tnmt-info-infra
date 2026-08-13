@@ -5,7 +5,7 @@ variable "domain" {
 }
 
 variable "cloudflare_api_token" {
-  description = "Cloudflare API token (Account: R2 Edit, Pages Edit, Workers Scripts Edit / Zone: DNS Edit)"
+  description = "Cloudflare API token (Account: R2 Edit, Pages Edit, Workers Scripts Edit, Account Settings Edit / Zone: DNS Edit)"
   type        = string
   sensitive   = true
 }
