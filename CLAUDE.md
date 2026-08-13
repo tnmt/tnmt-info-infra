@@ -12,7 +12,7 @@ backend は `~/.aws/credentials` の `tnmt-info-terraform-state` profile を内�
 ## 注意事項
 
 - サイト本体は別リポジトリ [tnmt/tnmt.info](https://github.com/tnmt/tnmt.info)。Cloudflare Pages で配信。
-- `/images/*` は Cloudflare R2 バケット `tnmt-info-assets` を Pages Functions (`functions/images/[[path]].ts`) 経由で配信。
+- `/media/*` は Cloudflare R2 バケット `tnmt-info-assets` を SvelteKit route (`src/routes/media/[...path]/+server.ts`) 経由で配信。
 - DNS は Cloudflare ダッシュボードで管理 (Terraform 管理外)。
-- Pages の R2 binding (`IMAGES`) と `compatibility_date` は tnmt.info リポの `wrangler.toml` で管理。`env_vars` (HUGO_VERSION) は Terraform 管理。
+- Pages の R2 binding (`MEDIA`) と `compatibility_date` は tnmt.info リポの `wrangler.toml` で管理。`env_vars` は Terraform 管理 (Hugo 時代の HUGO_VERSION は削除済み)。
 
